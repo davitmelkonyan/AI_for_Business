@@ -19,8 +19,8 @@ class DQN(object):
         len_memory = len(self.memory)
         num_inputs = self.memory[0][0][0].shape[1] #transition has at index 0:currState, 1:actionPlayed, 2:reward, 3:nextState
         num_outputs = model.output_shape[-1] #-1 is index of last element
-        inputs_batch = np.zeros(min(len_memory, batch_size), num_inputs)#10 rows and 3 cols (num of users, data rate, server temp)
-        targets = np.zeros(min(len_memory, batch_size), num_outputs) #10 rows again and now 5 cols/actions
+        inputs_batch = np.zeros((min(len_memory, batch_size), num_inputs))#10 rows and 3 cols (num of users, data rate, server temp)
+        targets = np.zeros((min(len_memory, batch_size), num_outputs)) #10 rows again and now 5 cols/actions
         for i,idx in enumerate(np.random.randint(0, len_memory, size = min(len_memory, batch_size))): #i will take size
             current_state, action, reward, next_state = self.memory[idx][0] # got the transition (not game over)
             game_over = self.memory[idx][1]

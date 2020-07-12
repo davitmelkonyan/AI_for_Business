@@ -35,6 +35,10 @@ train = True
 #--------START TRAINING----------
 env.train = train
 model = brain.model
+early_stopping = True
+patience = 10
+best_total_reward = -np.inf
+patience_count = 0
 if(env.train):
     for epoch in range(1, number_epochs):
         total_reward = 0
@@ -79,9 +83,15 @@ if(env.train):
         print("Total Energy spent with an AI: {:.0f}".format(env.total_energy_ai))
         print("Total Energy spent with no AI: {:.0f}".format(env.total_energy_no_ai))
 
+        #--------EARLY STOPPING---------
+        if(early_stopping):
+            if (total_reward <= best_total_reward):
+                patience_count +=1
+            elif(total_reward > best_total_reward):
+                best_total_reward = total_reward
+                patience_count = 0
+            if (patience_count >= patience):
+                print("Early Stopping")
+                break
         #--------SAVE THE MODEL---------
         model.save("model.h5")
-
-
-
-
