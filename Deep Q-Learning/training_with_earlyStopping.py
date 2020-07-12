@@ -25,7 +25,7 @@ env = environment.Environment(optimal_temp = (18.0,24.0),
                               initial_number_users = 20,
                               initial_rate_data = 30)
 #build brain obj
-brain = brain.Brain(learning_rate = 0.0001, number_actions = number_actions)
+brain = brain.Brain(learning_rate = 0.00001, number_actions = number_actions)
 #build dqn obj
 dqn = dqn.DQN(max_memory = max_memory, discount = 0.9)
 
@@ -44,7 +44,7 @@ if(env.train):
         total_reward = 0
         loss = 0.0
         new_month = np.random.randint(0,12)
-        env.reset(new_month=new_month)
+        env.reset(new_month = new_month)
         game_over = False
         current_state, _,_ = env.observe() #only get the first thing observe method returns from 3
         timestep = 0

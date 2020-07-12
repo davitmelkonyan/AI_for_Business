@@ -73,7 +73,7 @@ class Environment(object):
             delta_temp_ai = energy_ai
         self.temperature_ai += delta_intrinsic_temp  + delta_temp_ai
         #no AI
-        self.temperature_ai += delta_intrinsic_temp
+        self.temperature_no_ai += delta_intrinsic_temp
 
         #-------GET the GAME OVER------
         if(self.temperature_ai < self.min_temp):
@@ -93,7 +93,7 @@ class Environment(object):
         #update totak energy spent by ai
         self.total_energy_ai += energy_ai
         #same for no_ai
-        self.total_energy_no_ai +=energy_no_ai
+        self.total_energy_no_ai += energy_no_ai
 
         #---------SCALE THE NEXT STATE-------
         scaled_temp_ai = (self.temperature_ai - self.min_temp)/(self.max_temp - self.min_temp)
@@ -126,5 +126,4 @@ class Environment(object):
         scaled_rate_data = (self.current_rate_data - self.min_rate_data)/(self.max_rate_data - self.min_rate_data)
         current_state = np.matrix([scaled_temp_ai,scaled_number_users,scaled_rate_data])#the vector
         return current_state, self.reward, self.game_over
- 
-    
+
